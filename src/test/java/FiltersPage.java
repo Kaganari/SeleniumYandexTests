@@ -10,15 +10,12 @@ import java.util.Map;
 /**
  * Created by User on 28.02.2018.
  */
-public class Application {
+public class FiltersPage {
     private WebDriver driver;
-    List<WebElement> listOfResults;
-    String firstResult;
-
     Map<String, String> manufacturers = new HashMap<String,String>();
 
 
-    Application(WebDriver driver){
+    FiltersPage(WebDriver driver){
         this.driver = driver;
     }
 
@@ -27,13 +24,6 @@ public class Application {
         manufacturers.put("Lenovo","glf-7893318-152981");
         manufacturers.put("Acer","glf-7893318-267101");
         manufacturers.put("Dell","glf-7893318-153080");
-    }
-
-    public void getToLaptops() {
-        driver.get("https://yandex.ru/");
-        driver.findElement(By.linkText("Маркет")).click();
-        driver.findElement(By.linkText("Компьютеры")).click();
-        driver.findElement(By.linkText("Ноутбуки")).click();
     }
 
     public void checkManufacturers(String[] mnf_ids) throws InterruptedException {
@@ -48,30 +38,12 @@ public class Application {
         driver.findElement(By.id("glf-priceto-var")).sendKeys(String.valueOf(to));
     }
 
-    public void showAllFilters() {
-        driver.findElement(By.xpath("//*[@class='n-filter-panel-aside__content']//*[text()='Перейти ко всем фильтрам']")).click();
-    }
-
     public void showAllManufacturers() {
         driver.findElement(By.xpath("//*[@class='button__text']//parent::button")).click();
     }
 
     public void showResults() {
         driver.findElement(By.xpath("//span[text()='Показать подходящие']//ancestor::div[1]")).click();
-    }
-
-    public void rememberResults() {
-        listOfResults = driver.findElements(By.className("n-snippet-card2__title"));
-        firstResult = listOfResults.get(0).getText();
-    }
-
-    public void findFirstResult() {
-        driver.findElement(By.id("header-search")).sendKeys(firstResult);
-        driver.findElement(By.className("button2_type_submit")).click();
-    }
-
-    public String getFirstResult() {
-        return firstResult;
     }
 
 }
